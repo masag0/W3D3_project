@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+def get_email
+  print "Enter email: "
+  gets.strip
+end
+
+def find_user(email)
+  User.find_by(email: email)
+end
+
+def visit_or_create(user)
+  print "Visit or create short URL? "
+  input = gets.strip
+  if input == 'v'
+    puts "Type in short url: "
+    short = gets.strip
+
+  elsif input == 'c'
+    puts "Type in long url: "
+    long = gets.strip
+    url = ShortenedUrl.random_code(long, user)
+    print url.short_url
+  end
+
+
+end
+
+def run
+  user_email = get_email
+  user = find_user(user_email)
+  visit_or_create(user)
+end
+
+run
